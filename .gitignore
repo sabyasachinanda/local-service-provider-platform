@@ -1,0 +1,54 @@
+# ==============================
+# OS & IDE Files
+# ==============================
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.suo
+*.user
+
+# ==============================
+# Backend (Spring Boot / Maven)
+# ==============================
+target/
+*.jar
+*.war
+*.ear
+*.class
+*.log
+hs_err_pid*
+
+# Specific Backend Directories
+backend/target/
+backend/.mvn/
+backend/uploads/
+uploads/
+
+# Eclipse / Intellij auto-generated
+.classpath
+.project
+.settings/
+.factorypath
+
+# ==============================
+# Frontend (React / Vite / Node)
+# ==============================
+node_modules/
+dist/
+dist-ssr/
+build/
+coverage/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# npm & yarn debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
