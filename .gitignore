@@ -41,6 +41,9 @@ build/
 coverage/
 
 # Environment variables
+ 
+application.properties
+**/application.properties
 .env
 .env.local
 .env.development.local

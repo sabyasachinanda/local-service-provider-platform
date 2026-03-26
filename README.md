@@ -14,10 +14,10 @@ This platform enables clients to book local service specialists (plumbers, mecha
 The application architecture is explicitly configured to support dynamic deployments without code adjustment.
 
 **Required Environment Variables (Add these in Render Dashboard):**
-* `DB_URL`: JDBC mapped URL structure (e.g. `jdbc:mysql://mysql.railway.app:3306/db_name`)
+* `DB_URL`: JDBC mapped URL structure (e.g. `jdbc:postgresql://containers-us-west.railway.app:5432/railway`)
 * `DB_USERNAME`: Database username.
 * `DB_PASSWORD`: Database password string.
-* `JWT_SECRET`: Random 256-bit hash for protecting auth (e.g. `9Z0zX2H0QjO2bE1QfT7sY0gO1zT8R5eI9Z0zX...`).
+* `JWT_SECRET`: Random 256-bit hash for protecting auth.
 * `FRONTEND_URL`: Absolute URL of the Vercel app (e.g. `https://my-app.vercel.app`)
 
 **Deployment Instructions:**
@@ -25,7 +25,7 @@ The application architecture is explicitly configured to support dynamic deploym
 2. Create **New Web Service** -> Connect your GitHub.
 3. Build Command: `mvn clean install`
 4. Start Command: `java -jar target/*.jar`
-5. Inject the associated Environment Variables explicitly mapped to your PlanetScale/Railway MySQL instances. The database tables automatically deploy sequentially via `hibernate.ddl-auto=update` context mappings.
+5. Inject the associated Environment Variables explicitly mapped to your Railway/Supabase PostgreSQL instances. The database tables automatically deploy sequentially via `hibernate.ddl-auto=update` context mappings.
 
 ## 2. Frontend Application Deployment (Vercel)
 The UI bridges strictly via Cross-Origin requests binding securely to relative mappings.
@@ -40,7 +40,7 @@ The UI bridges strictly via Cross-Origin requests binding securely to relative m
 4. Output Directory: `dist`
 5. Add `VITE_API_URL` under Environment variables before pressing Deploy.
 
-## 3. Database Management (Railway)
+## 3. Database Management (Railway/Neon)
 Leverage robust hosting paradigms to guarantee scaling database uptimes:
-1. Log into [Railway.app](https://railway.app) and "Provision MySQL" container.
-2. Under "Connect" variables tab, copy your mapped parameters explicitly dynamically mapping to the Render `DB_URL` constants mapped above. Ensure URL maps correctly (prepend: `jdbc:mysql://`).
+1. Log into [Railway.app](https://railway.app) and "Provision PostgreSQL" container.
+2. Under "Connect" variables tab, copy your mapped parameters explicitly dynamically mapping to the Render `DB_URL` constants mapped above. Ensure URL maps correctly (prepend: `jdbc:postgresql://`).
