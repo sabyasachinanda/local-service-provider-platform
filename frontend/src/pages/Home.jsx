@@ -71,88 +71,102 @@ const Home = () => {
     };
 
     return (
-        <div>
-            <div className="p-5 mb-5 bg-white rounded-4 text-center shadow" style={{borderTop: '5px solid #0d6efd'}}>
-                <h1 className="display-4 fw-bold text-dark mt-3">Find the perfect service provider</h1>
-                <p className="col-md-8 mx-auto fs-5 text-muted mb-4">Book electricians, plumbers, cleaners, and professionals instantly.</p>
-                {!user && <button className="btn btn-primary btn-lg rounded-pill px-5 fw-bold" onClick={() => navigate('/register')}>Get Started</button>}
+        <div className="pb-5">
+            {/* HERO BANNER SECTION */}
+            <div className="hero-gradient rounded-4 position-relative shadow-lg animate-fade-in-up" style={{ minHeight: '480px', marginTop: '20px' }}>
+                <img src="/images/hero.png" alt="Hero Background" className="position-absolute w-100 h-100" style={{ objectFit: 'cover', opacity: 0.35, top: 0, left: 0, zIndex: 0 }} />
+                <div className="position-relative z-index-1 text-center text-white d-flex flex-column justify-content-center align-items-center h-100" style={{ zIndex: 2, paddingTop: '100px' }}>
+                    <h1 className="display-2 fw-bolder mb-3" style={{ textShadow: '0 8px 16px rgba(0,0,0,0.5)', letterSpacing: '-1.5px' }}>Transform Your Home. <br /> Instantly.</h1>
+                    <p className="fs-4 fw-light mb-0" style={{ opacity: 0.9 }}>Premium, verified local professionals at your fingertips.</p>
+                </div>
             </div>
-            
-            {recommendations && recommendations.length > 0 && (
-                <>
-                    <h3 className="mb-4 fw-bold text-dark mt-5">🌟 Recommended for You</h3>
-                    <div className="row mb-5">
-                        {recommendations.map(service => (
-                            <div className="col-md-4 mb-4" key={"rec-" + service.id}>
-                                <div className="card h-100 p-4 border-0 shadow-lg rounded-4" style={{background: 'linear-gradient(145deg, #f8f9fa, #e9ecef)'}}>
-                                    <div className="d-flex justify-content-between align-items-start mb-3">
-                                        <h4 className="fw-bold mb-0 text-dark">{service.name}</h4>
-                                        <span className="badge bg-warning text-dark rounded-pill px-3 py-2 fw-bold">Top Pick</span>
-                                    </div>
-                                    <span className="badge bg-primary rounded-pill px-3 py-2 mb-2 d-inline-block" style={{width: "max-content"}}>{service.category}</span>
-                                    <h3 className="text-primary fw-bolder mb-3">${service.price}</h3>
-                                    <p className="text-muted small mb-4 fw-bold pb-2 border-bottom">Provided by: {service.providerName}</p>
-                                    <button className="btn btn-primary w-100 fw-bold rounded-pill" onClick={() => handleBookClick(service.id)}>Book Now</button>
-                                </div>
-                            </div>
-                        ))}
+
+            {/* FLOATING SEARCH BAR */}
+            <div className="container position-relative search-bar-floating animate-fade-in-up px-3 py-2" style={{ marginTop: '-45px', maxWidth: '850px' }}>
+                <div className="row w-100 g-2 align-items-center m-0">
+                    <div className="col-md-8 border-end">
+                         <input type="text" className="form-control form-control-lg border-0 bg-transparent shadow-none fw-bold text-dark" placeholder="What do you need help with?" style={{ fontSize: '1.25rem' }} value={filters.category} onChange={e => setFilters({...filters, category: e.target.value})} />
                     </div>
-                </>
-            )}
-            
-            <h3 className="mb-4 fw-bold text-dark">Available Services</h3>
-            
-            <div className="card shadow-sm border-0 mb-4 p-4 rounded-4 bg-light">
-                <h5 className="fw-bold mb-3">Filter Services</h5>
-                <div className="row g-3">
-                    <div className="col-md-3">
-                        <label className="form-label text-muted small fw-bold">Category</label>
-                        <select className="form-select border-0" value={filters.category} onChange={e => setFilters({...filters, category: e.target.value})}>
-                            <option value="">All Categories</option>
-                            <option value="Plumbing">Plumbing</option>
-                            <option value="Electrical">Electrical</option>
-                            <option value="Cleaning">Cleaning</option>
-                            <option value="Mechanic">Mechanic</option>
-                            <option value="IT Support">IT Support</option>
-                        </select>
-                    </div>
-                    <div className="col-md-3">
-                        <label className="form-label text-muted small fw-bold">Min Price ($)</label>
-                        <input type="number" className="form-control border-0" placeholder="0" value={filters.minPrice} onChange={e => setFilters({...filters, minPrice: e.target.value})} />
-                    </div>
-                    <div className="col-md-3">
-                        <label className="form-label text-muted small fw-bold">Max Price ($)</label>
-                        <input type="number" className="form-control border-0" placeholder="1000" value={filters.maxPrice} onChange={e => setFilters({...filters, maxPrice: e.target.value})} />
-                    </div>
-                    <div className="col-md-3">
-                        <label className="form-label text-muted small fw-bold">Min Rating</label>
-                        <select className="form-select border-0" value={filters.rating} onChange={e => setFilters({...filters, rating: e.target.value})}>
-                            <option value="">Any Rating</option>
-                            <option value="4.0">4.0+ Stars</option>
-                            <option value="3.0">3.0+ Stars</option>
-                            <option value="2.0">2.0+ Stars</option>
-                        </select>
+                    <div className="col-md-4 text-end">
+                         <button className="premium-btn w-100 py-3 fs-5" onClick={fetchServices}>Search Services</button>
                     </div>
                 </div>
             </div>
 
-            <div className="row">
-                {services.length === 0 ? (
-                    <div className="col-12"><p className="text-muted text-center mt-5 fs-5">No services available right now.</p></div>
-                ) : (
-                    services.map(service => (
-                        <div className="col-md-4 mb-4" key={service.id}>
-                            <div className="card h-100 p-4 border-0 shadow rounded-4" style={{background: 'linear-gradient(145deg, #ffffff, #f0f2f5)'}}>
-                                <div className="d-flex justify-content-between align-items-start mb-3">
-                                    <h4 className="fw-bold mb-0 text-dark">{service.name}</h4>
-                                    <span className="badge bg-primary rounded-pill px-3 py-2">{service.category}</span>
+            {/* CATEGORY PILLS */}
+            <div className="d-flex flex-wrap justify-content-center gap-3 mt-5 pt-4 mb-5 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                <div className="category-pill" onClick={() => setFilters({...filters, category: 'Cleaning'})}>
+                    <img src="/images/cleaning.png" alt="Cleaning" style={{ width: '38px', height: '38px', borderRadius: '50%' }} />
+                    Home Cleaning
+                </div>
+                <div className="category-pill" onClick={() => setFilters({...filters, category: 'Plumbing'})}>
+                    <img src="/images/plumbing.png" alt="Plumbing" style={{ width: '38px', height: '38px', borderRadius: '50%' }} />
+                    Plumbing Experts
+                </div>
+                <div className="category-pill" onClick={() => setFilters({...filters, category: 'Electrical'})}>
+                    <img src="/images/electrical.png" alt="Electrical" style={{ width: '38px', height: '38px', borderRadius: '50%' }} />
+                    Electrical Repair
+                </div>
+            </div>
+            
+            {/* RECOMMENDED SERVICES */}
+            {recommendations && recommendations.length > 0 && (
+                <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', marginTop: '80px' }}>
+                    <div className="d-flex justify-content-between align-items-end mb-4">
+                        <h2 className="fw-bolder text-dark mb-0" style={{ color: 'var(--primary-color)' }}>🌟 Top Rated Near You</h2>
+                        <a href="#all-services" className="text-decoration-none fw-bold" style={{ color: 'var(--accent-color)' }}>See all →</a>
+                    </div>
+                    <div className="row mb-5 g-4">
+                        {recommendations.map((service, idx) => (
+                            <div className="col-md-4" key={"rec-" + service.id} style={{ animationDelay: `${0.1 * idx}s` }}>
+                                <div className="premium-card p-4">
+                                    <div className="d-flex justify-content-between align-items-start mb-4">
+                                        <h4 className="fw-bolder mb-0 text-dark" style={{ letterSpacing: '-0.5px' }}>{service.name}</h4>
+                                        <span className="badge rounded-pill px-3 py-2 fw-bold" style={{ backgroundColor: 'rgba(0, 210, 137, 0.15)', color: 'var(--accent-hover)' }}>🔥 Top Pick</span>
+                                    </div>
+                                    <div className="d-flex align-items-center mb-4">
+                                        <span className="badge bg-light text-dark rounded-pill px-3 py-2 border shadow-sm">{service.category}</span>
+                                    </div>
+                                    <h2 className="fw-black mb-1" style={{ color: 'var(--primary-color)', fontWeight: 900 }}>${service.price}</h2>
+                                    <p className="text-muted small mb-4 fw-bold pb-3 border-bottom d-flex align-items-center gap-2">
+                                        <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'linear-gradient(45deg, var(--accent-color), var(--primary-color))' }}></div>
+                                        {service.providerName}
+                                    </p>
+                                    <button className="premium-btn w-100 shadow-none" onClick={() => handleBookClick(service.id)}>Book Instantly</button>
                                 </div>
-                                <h3 className="text-primary fw-bolder mb-3">${service.price}</h3>
-                                <p className="text-muted small mb-4 fw-bold pb-2 border-bottom">Provided by: {service.providerName}</p>
-                                <button 
-                                    className="btn btn-dark w-100 fw-bold rounded-pill" 
-                                    onClick={() => handleBookClick(service.id)}>
-                                    Book Now
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+            
+            {/* ALL SERVICES GRID */}
+            <div id="all-services" className="d-flex justify-content-between align-items-end mb-4 mt-5 pt-4">
+                <h2 className="fw-bolder text-dark mb-0" style={{ color: 'var(--primary-color)' }}>Explore Services</h2>
+            </div>
+            
+            <div className="row g-4 mb-5">
+                {services.length === 0 ? (
+                    <div className="col-12">
+                        <div className="p-5 text-center bg-white rounded-4 shadow-sm border border-light">
+                            <h4 className="fw-bold text-muted">No services found matching your criteria.</h4>
+                            <p className="text-muted mb-0">Try adjusting your filters or category selection above.</p>
+                        </div>
+                    </div>
+                ) : (
+                    services.map((service, idx) => (
+                        <div className="col-md-4 animate-fade-in-up" key={service.id} style={{ animationDelay: `${0.05 * idx}s` }}>
+                            <div className="premium-card p-4">
+                                <div className="d-flex justify-content-between align-items-start mb-3">
+                                    <h4 className="fw-bold mb-0 text-dark" style={{ letterSpacing: '-0.5px' }}>{service.name}</h4>
+                                </div>
+                                <div className="mb-4">
+                                    <span className="badge bg-light text-muted border px-3 py-2 rounded-pill fw-bold">{service.category}</span>
+                                </div>
+                                <h2 className="fw-black mb-2" style={{ color: 'var(--primary-color)', fontWeight: 800 }}>${service.price}</h2>
+                                <p className="text-muted small mb-4 fw-medium border-bottom pb-3">Provider: <strong>{service.providerName}</strong></p>
+                                <button className="premium-btn-outline w-100" onClick={() => handleBookClick(service.id)}>
+                                    Reserve
                                 </button>
                             </div>
                         </div>
@@ -161,10 +175,10 @@ const Home = () => {
             </div>
 
             {totalPages > 1 && (
-                <div className="d-flex justify-content-center align-items-center mt-5 mb-4 gap-3">
-                    <button className="btn btn-primary fw-bold px-4 rounded-pill shadow-sm" disabled={page === 0} onClick={() => setPage(page - 1)}>Previous Page</button>
-                    <span className="fw-bold text-dark bg-white px-4 py-2 rounded-pill shadow border border-light">Page {page + 1} of {totalPages}</span>
-                    <button className="btn btn-primary fw-bold px-4 rounded-pill shadow-sm" disabled={page + 1 >= totalPages} onClick={() => setPage(page + 1)}>Next Page</button>
+                <div className="d-flex justify-content-center align-items-center mt-5 mb-4 gap-4 animate-fade-in-up">
+                    <button className="premium-btn-outline px-4" disabled={page === 0} onClick={() => setPage(page - 1)}>← Previous</button>
+                    <span className="fw-bold text-dark px-4 py-2 rounded-pill" style={{ background: 'white', boxShadow: 'var(--shadow-sm)' }}>Page {page + 1} of {totalPages}</span>
+                    <button className="premium-btn px-4 shadow-none" disabled={page + 1 >= totalPages} onClick={() => setPage(page + 1)}>Next →</button>
                 </div>
             )}
         </div>

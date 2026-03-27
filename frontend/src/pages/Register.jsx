@@ -19,32 +19,35 @@ const Register = () => {
     };
 
     return (
-        <div className="row justify-content-center mt-5">
+        <div className="row justify-content-center py-5" style={{ minHeight: 'calc(100vh - 100px)', alignItems: 'center', marginBottom: '80px' }}>
             <div className="col-md-6">
-                <div className="card shadow border-0 p-5 rounded-4">
-                    <h2 className="text-center mb-4 text-primary fw-bold">Create Account</h2>
-                    {error && <div className="alert alert-danger rounded-3">{error}</div>}
+                <div className="premium-card p-5 animate-fade-in-up" style={{ borderRadius: '24px' }}>
+                    <div className="text-center mb-5">
+                        <h2 className="fw-bolder mb-2" style={{ color: 'var(--primary-color)', letterSpacing: '-0.5px' }}>Create an Account</h2>
+                        <p className="text-muted fw-medium">Join thousands of premium professionals and customers.</p>
+                    </div>
+                    {error && <div className="alert bg-danger text-white border-0 rounded-3 shadow-sm">{error}</div>}
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
-                            <label className="form-label text-muted fw-bold">Full Name</label>
-                            <input type="text" required className="form-control form-control-lg bg-light border-0" value={name} onChange={(e) => setName(e.target.value)} />
+                            <label className="form-label text-dark fw-bold small text-uppercase">Full Name</label>
+                            <input type="text" required className="form-control form-control-lg bg-light border-0 shadow-none px-4 py-3 rounded-3 fw-medium" placeholder="John Doe" value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
                         <div className="mb-4">
-                            <label className="form-label text-muted fw-bold">Email</label>
-                            <input type="email" required className="form-control form-control-lg bg-light border-0" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <label className="form-label text-dark fw-bold small text-uppercase">Email Address</label>
+                            <input type="email" required className="form-control form-control-lg bg-light border-0 shadow-none px-4 py-3 rounded-3 fw-medium" placeholder="name@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                         <div className="mb-4">
-                            <label className="form-label text-muted fw-bold">Password</label>
-                            <input type="password" required className="form-control form-control-lg bg-light border-0" minLength="6" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <label className="form-label text-dark fw-bold small text-uppercase">Secure Password</label>
+                            <input type="password" required className="form-control form-control-lg bg-light border-0 shadow-none px-4 py-3 rounded-3 fw-medium" placeholder="Minimum 6 characters" minLength="6" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         <div className="mb-5">
-                            <label className="form-label text-muted fw-bold">I want to:</label>
-                            <select className="form-select form-select-lg bg-light border-0" value={role} onChange={(e) => setRole(e.target.value)}>
-                                <option value="CUSTOMER">Book Services as a Customer</option>
-                                <option value="SERVICE_PROVIDER">Offer Services as a Provider</option>
+                            <label className="form-label text-dark fw-bold small text-uppercase mb-3">I want to:</label>
+                            <select className="form-select form-select-lg bg-light border-0 shadow-none px-4 py-3 rounded-3 fw-bold" style={{ color: 'var(--primary-color)' }} value={role} onChange={(e) => setRole(e.target.value)}>
+                                <option value="CUSTOMER">Book Premium Services (Customer)</option>
+                                <option value="SERVICE_PROVIDER">Offer Professional Services (Provider)</option>
                             </select>
                         </div>
-                        <button type="submit" className="btn btn-primary btn-lg w-100 fw-bold rounded-3">Register</button>
+                        <button type="submit" className="premium-btn w-100 py-3 fs-5">Register Instantly</button>
                     </form>
                 </div>
             </div>
