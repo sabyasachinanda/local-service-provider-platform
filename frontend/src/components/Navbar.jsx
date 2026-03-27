@@ -11,8 +11,11 @@ const Navbar = () => {
                 <Link className="navbar-brand text-dark fs-4 fw-bolder" to="/">
                     Home<span style={{ color: 'var(--accent-color)' }}>Fix</span>
                 </Link>
-                <div className="collapse navbar-collapse d-flex justify-content-end">
-                    <ul className="navbar-nav mb-2 mb-lg-0 align-items-center gap-2">
+                <button className="navbar-toggler shadow-none border-0 bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul className="navbar-nav mb-2 mb-lg-0 align-items-lg-center gap-2 mt-3 mt-lg-0">
                         <li className="nav-item">
                             <Link className="nav-link text-dark fw-semibold me-3 px-3" to="/">Home</Link>
                         </li>
